@@ -19,6 +19,7 @@ const MAPPING = {
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
   'creditcard.fill': 'account-balance-wallet',
+  'list.bullet': 'list',
   'person.fill': 'person',
   'gearshape.fill': 'settings',
 } as IconMapping;

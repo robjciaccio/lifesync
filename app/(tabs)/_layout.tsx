@@ -1,42 +1,60 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { ParamListBase, TabNavigationState } from "@react-navigation/native";
+import {
+  MaterialTopTabNavigationEventMap,
+  MaterialTopTabNavigationOptions,
+  createMaterialTopTabNavigator,
+} from "@react-navigation/material-top-tabs";
+import { withLayoutContext } from "expo-router";
+import React from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+
+const { Navigator } = createMaterialTopTabNavigator();
+
+export const TopTabs = withLayoutContext<
+  MaterialTopTabNavigationOptions,
+  typeof Navigator,
+  TabNavigationState<ParamListBase>,
+  MaterialTopTabNavigationEventMap
+>(Navigator);
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? "light"];
+  const insets = useSafeAreaInsets();
 
   return (
-    <Tabs
+    <TopTabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
+        tabBarActiveTintColor: colors.tint,
+        tabBarInactiveTintColor: colors.tabIconDefault,
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: "600",
+          textTransform: "none",
+        },
+        tabBarIndicatorStyle: { backgroundColor: colors.tint },
+        tabBarStyle: {
+          backgroundColor: colors.background,
+          paddingTop: insets.top,
+        },
+        tabBarScrollEnabled: true,
+        tabBarItemStyle: { width: "auto", minWidth: 100 },
+      }}
+    >
+      <TopTabs.Screen name="index" options={{ title: "Accounts" }} />
+      <TopTabs.Screen name="transactions" options={{ title: "Transactions" }} />
+      <TopTabs.Screen
+        name="budget"
         options={{
-          title: 'Accounts',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="creditcard.fill" color={color} />,
+          title: "Budget",
         }}
       />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="gearshape.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+      <TopTabs.Screen name="calendar" options={{ title: "Calendar" }} />
+      <TopTabs.Screen name="profile" options={{ title: "Profile" }} />
+      <TopTabs.Screen name="settings" options={{ title: "Settings" }} />
+    </TopTabs>
   );
 }
