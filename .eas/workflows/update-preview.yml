@@ -12,3 +12,4 @@ jobs:
     environment: preview
     params:
       channel: preview
+      platform: ios
