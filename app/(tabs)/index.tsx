@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
 
   accountCard: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "purple",
     borderRadius: 18,
     padding: 18,
     flexDirection: "row",
