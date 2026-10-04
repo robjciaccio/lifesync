@@ -77,3 +77,7 @@ expo-env.d.ts
 .expo/
 android/
 ios/
+
+.env
+.env.*
+!.env.example

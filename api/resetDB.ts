@@ -1,5 +1,6 @@
+import { API_URL } from "@/config/api";
 export async function resetDatabase() {
-  const response = await fetch("http://localhost:3000/dev/reset", {
+  const response = await fetch(`${API_URL}/dev/reset`, {
     method: "DELETE",
   });
 

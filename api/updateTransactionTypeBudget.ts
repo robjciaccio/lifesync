@@ -1,3 +1,5 @@
+import { API_URL } from "@/config/api";
+
 type UpdateTransactionTypeBudgetParams = {
   transactionTypeId: string;
   monthlyBudget: number;
@@ -8,7 +10,7 @@ export async function updateTransactionTypeBudget({
   monthlyBudget,
 }: UpdateTransactionTypeBudgetParams) {
   const response = await fetch(
-    `http://localhost:3000/transaction-types/${transactionTypeId}/budget`,
+    `${API_URL}/transaction-types/${transactionTypeId}/budget`,
     {
       method: "PATCH",
       headers: {

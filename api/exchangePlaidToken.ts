@@ -1,5 +1,6 @@
+import { API_URL } from "@/config/api";
 export async function exchangePlaidToken(publicToken: string) {
-  const response = await fetch("http://localhost:3000/plaid/exchange-token", {
+  const response = await fetch(`${API_URL}/plaid/exchange-token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

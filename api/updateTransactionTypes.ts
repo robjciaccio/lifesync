@@ -1,3 +1,5 @@
+import { API_URL } from "@/config/api";
+
 type UpdateTransactionTypeParams = {
   transactionId: string;
   transactionTypeId: string;
@@ -8,7 +10,7 @@ export async function updateTransactionType({
   transactionTypeId,
 }: UpdateTransactionTypeParams) {
   const response = await fetch(
-    `http://localhost:3000/transactions/${transactionId}/type`,
+    `${API_URL}/transactions/${transactionId}/type`,
     {
       method: "PATCH",
       headers: {

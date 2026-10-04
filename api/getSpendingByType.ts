@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 export type SpendingByType = {
   id: string;
   name: string;
@@ -27,7 +28,7 @@ export async function getSpendingByType({
   });
 
   const response = await fetch(
-    `http://localhost:3000/transactions/spending-by-type?${params.toString()}`,
+    `${API_URL}/transactions/spending-by-type?${params.toString()}`,
   );
 
   if (!response.ok) {

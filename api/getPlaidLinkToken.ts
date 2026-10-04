@@ -1,5 +1,6 @@
+import { API_URL } from "@/config/api";
 export async function getPlaidLinkToken() {
-  const response = await fetch("http://localhost:3000/plaid/link-token", {
+  const response = await fetch(`${API_URL}/plaid/link-token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

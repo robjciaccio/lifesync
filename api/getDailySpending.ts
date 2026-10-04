@@ -1,3 +1,5 @@
+import { API_URL } from "@/config/api";
+
 type GetDailySpendingParams = {
   year: number;
   month: number;
@@ -8,7 +10,7 @@ export async function getDailySpending({
   month,
 }: GetDailySpendingParams) {
   const response = await fetch(
-    `http://localhost:3000/transactions/daily-spending?year=${year}&month=${month}`,
+    `${API_URL}/transactions/daily-spending?year=${year}&month=${month}`,
   );
 
   if (!response.ok) {

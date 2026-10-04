@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 type GetTransactionsParams = {
   pageParam?: string | null;
   date?: string;
@@ -25,9 +26,7 @@ export async function getTransactions({
     params.set("accountId", accountId);
   }
 
-  const response = await fetch(
-    `http://localhost:3000/transactions?${params.toString()}`,
-  );
+  const response = await fetch(`${API_URL}/transactions?${params.toString()}`);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch transactions: ${response.status}`);
