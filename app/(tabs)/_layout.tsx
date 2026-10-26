@@ -37,7 +37,7 @@ export default function TabLayout() {
         },
         tabBarIndicatorStyle: { backgroundColor: colors.tint },
         tabBarStyle: {
-          backgroundColor: colors.background,
+          backgroundColor: "#191970",
           paddingTop: insets.top,
         },
         tabBarScrollEnabled: true,

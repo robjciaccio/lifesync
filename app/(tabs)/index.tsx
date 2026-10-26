@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAccounts } from "../../hooks/usePlaidAccounts";
 import { refreshAccounts } from "../../api/refreshAccount";
+import { ConnectBankButton } from "@/components/connectBankButton";
 
 export default function HomeScreen() {
   const queryClient = useQueryClient();
@@ -48,7 +49,15 @@ export default function HomeScreen() {
           Failed to load accounts: {error.message}
         </Text>
       )}
+      {!isLoading && !isError && !data?.accounts?.length && (
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyStateText}>
+            No bank accounts connected yet.
+          </Text>
 
+          <ConnectBankButton />
+        </View>
+      )}
       <View style={styles.accounts}>
         {data?.accounts?.map((account: any) => (
           <Pressable
@@ -100,7 +109,7 @@ function formatCurrency(value: number | null) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F7",
+    backgroundColor: "#00008b",
   },
   accountCardPressed: {
     opacity: 0.6,
@@ -135,9 +144,19 @@ const styles = StyleSheet.create({
     marginTop: 28,
     gap: 12,
   },
+  emptyState: {
+    marginTop: 60,
+    alignItems: "center",
+    gap: 20,
+  },
+
+  emptyStateText: {
+    fontSize: 16,
+    color: "white",
+  },
 
   accountCard: {
-    backgroundColor: "purple",
+    backgroundColor: "#FFFFFF",
     borderRadius: 18,
     padding: 18,
     flexDirection: "row",

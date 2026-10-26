@@ -11,4 +11,5 @@ jobs:
     type: build
     params:
       platform: ios
+      channel: preview
       profile: preview

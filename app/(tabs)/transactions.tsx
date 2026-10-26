@@ -1,4 +1,6 @@
+import { API_URL } from "@/config/api";
 import { StyleSheet, FlatList, View, Text, Pressable } from "react-native";
+
 import { router } from "expo-router";
 import { useTransactions } from "@/hooks/useTransactions";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,14 +8,8 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function TransactionsScreen() {
-  const {
-    data,
-    isLoading,
-    isError,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useTransactions();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useTransactions();
 
   function formatCurrency(value: number) {
     return new Intl.NumberFormat("en-US", {
@@ -24,18 +20,19 @@ export default function TransactionsScreen() {
   const queryClient = useQueryClient();
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+  console.log(
+    "Transactions:",
+    JSON.stringify(data?.pages?.[0]?.transactions, null, 2),
+  );
 
   const handleRefresh = async () => {
     try {
       setIsRefreshing(true);
 
       // Ask backend to pull new transactions from Plaid
-      const response = await fetch(
-        "http://localhost:3000/transactions/refresh",
-        {
-          method: "POST",
-        },
-      );
+      const response = await fetch(`${API_URL}/transactions/refresh`, {
+        method: "POST",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to refresh transactions");
@@ -108,7 +105,7 @@ export default function TransactionsScreen() {
       edges={["bottom", "left", "right"]}
       style={{ flex: 1, backgroundColor: "#F9F9F9" }}
     >
-      <View style={{}}>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={transactions}
           renderItem={renderItem}
