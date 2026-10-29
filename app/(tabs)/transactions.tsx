@@ -41,7 +41,6 @@ export default function TransactionsScreen() {
         queryKey: ["transactions"],
       });
 
-      // Spending calendar may have changed too
       await queryClient.invalidateQueries({
         queryKey: ["daily-spending"],
       });
