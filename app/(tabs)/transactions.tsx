@@ -29,7 +29,6 @@ export default function TransactionsScreen() {
     try {
       setIsRefreshing(true);
 
-      // Ask backend to pull new transactions from Plaid
       const response = await fetch(`${API_URL}/transactions/refresh`, {
         method: "POST",
       });
