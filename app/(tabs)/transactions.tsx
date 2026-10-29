@@ -37,7 +37,6 @@ export default function TransactionsScreen() {
         throw new Error("Failed to refresh transactions");
       }
 
-      // Reload transactions from our database
       await queryClient.invalidateQueries({
         queryKey: ["transactions"],
       });
