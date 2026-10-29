@@ -1,0 +1,15 @@
+name: Update Preview
+
+on:
+  push:
+    branches:
+      - "release/*"
+
+jobs:
+  update:
+    name: Publish Preview Update
+    type: update
+    environment: preview
+    params:
+      channel: preview
+      platform: ios

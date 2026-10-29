@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+import { useCreateCategory } from "@/hooks/useCreateCategory";
 
 import { useUpdateTransactionTypeBudget } from "@/hooks/useUpdateTransactionTypeBudget";
 
@@ -31,6 +32,43 @@ export default function BudgetScreen() {
     ) ?? 0;
 
   const updateBudget = useUpdateTransactionTypeBudget();
+  const createCategory = useCreateCategory();
+
+  const sortedCategories = data?.spendingByType.sort(
+    (a, b) => (b.monthlyBudget ?? 0) - (a.monthlyBudget ?? 0),
+  );
+
+  const handleNewCategory = () => {
+    Alert.prompt(
+      "New Category",
+      "Enter the name of the new category",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Create",
+          onPress: async (value: any) => {
+            const name = value.trim();
+
+            if (!name) {
+              Alert.alert("Invalid name", "Category name cannot be empty.");
+
+              return;
+            }
+
+            try {
+              await createCategory.mutateAsync(name);
+            } catch (error) {
+              console.error("Failed to create category:", error);
+            }
+          },
+        },
+      ],
+      "plain-text",
+    );
+  };
 
   const handleSetBudget = (type: {
     id: string;
@@ -94,7 +132,9 @@ export default function BudgetScreen() {
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <ThemedText type="title">Budget</ThemedText>
+        {/* <ThemedText style={{ color: "white" }} type="title">
+          Budget
+        </ThemedText> */}
 
         <ThemedText style={styles.month}>
           {new Date(year, month - 1).toLocaleString("default", {
@@ -122,43 +162,66 @@ export default function BudgetScreen() {
             </ThemedText>
           </View>
         </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 20,
+          }}
+        >
+          <ThemedText
+            style={{
+              color: "white",
+              marginLeft: "auto",
+              fontSize: 14,
+              paddingLeft: 40,
+            }}
+          >
+            SPENT
+          </ThemedText>
+          <ThemedText
+            style={{
+              color: "white",
+              marginLeft: "auto",
 
-        <ThemedText style={styles.sectionTitle}>
-          Spending by category
-        </ThemedText>
+              fontSize: 14,
+            }}
+          >
+            BUDGET
+          </ThemedText>
+        </View>
 
         <View style={styles.categories}>
-          {data?.spendingByType.map((type) => (
+          {sortedCategories?.map((cat) => (
             <Pressable
-              key={type.id}
-              style={({ pressed }) => [
-                styles.categoryCard,
-                pressed && styles.categoryCardPressed,
-              ]}
-              onPress={() => handleSetBudget(type)}
+              key={cat.id}
+              style={styles.categoryCard}
+              onPress={() => handleSetBudget(cat)}
             >
-              <View>
-                <ThemedText style={styles.categoryName}>{type.name}</ThemedText>
+              <ThemedText style={styles.categoryText}>{cat.name}</ThemedText>
 
-                <ThemedText style={styles.transactionCount}>
-                  {type.transactionCount}{" "}
-                  {type.transactionCount === 1 ? "transaction" : "transactions"}
-                </ThemedText>
-              </View>
+              <ThemedText style={styles.spentText}>
+                {formatCurrency(cat.spent)}
+              </ThemedText>
 
-              <View style={styles.amountContainer}>
-                <ThemedText style={styles.categoryAmount}>
-                  {formatCurrency(type.spent)}
-                </ThemedText>
-
-                <ThemedText style={styles.budgetAmount}>
-                  {type.monthlyBudget !== null
-                    ? `of ${formatCurrency(type.monthlyBudget)}`
-                    : "Set budget"}
-                </ThemedText>
-              </View>
+              <ThemedText style={styles.budgetText}>
+                {cat.monthlyBudget !== null
+                  ? `${formatCurrency(cat.monthlyBudget)}`
+                  : "$0"}
+              </ThemedText>
             </Pressable>
           ))}
+
+          <Pressable
+            style={({ pressed }) => [
+              styles.categoryCard,
+              pressed && styles.categoryCardPressed,
+            ]}
+            onPress={handleNewCategory}
+          >
+            <ThemedText style={{ color: "white" }}>Add Category</ThemedText>
+          </Pressable>
+          {/* </View> */}
         </View>
       </ScrollView>
     </ThemedView>
@@ -175,6 +238,35 @@ function formatCurrency(value: number) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#191970",
+  },
+  categoryCard: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    minHeight: 20,
+    position: "relative",
+  },
+
+  categoryText: {
+    color: "white",
+    fontSize: 14,
+    maxWidth: "40%",
+  },
+
+  spentText: {
+    color: "white",
+    fontSize: 14,
+    position: "absolute",
+    left: "50%",
+    transform: [{ translateX: -25 }],
+  },
+
+  budgetText: {
+    color: "white",
+    fontSize: 14,
+    marginLeft: "auto",
+    textAlign: "right",
   },
 
   categoryCardPressed: {
@@ -188,6 +280,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 12,
     opacity: 0.5,
+    color: "white",
   },
 
   content: {
@@ -205,6 +298,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 16,
     opacity: 0.6,
+    color: "white",
   },
 
   summaryCard: {
@@ -212,7 +306,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 18,
     borderWidth: 1,
-    borderColor: "#E5E5EA",
+    borderColor: "#663399",
     flexDirection: "row",
     alignItems: "center",
   },
@@ -232,11 +326,13 @@ const styles = StyleSheet.create({
     fontSize: 26,
     lineHeight: 34,
     fontWeight: "700",
+    color: "white",
   },
 
   summaryLabel: {
     fontSize: 14,
     opacity: 0.6,
+    color: "white",
   },
 
   sectionTitle: {
@@ -244,35 +340,30 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     fontSize: 20,
     fontWeight: "700",
+    color: "white",
+    left: 0,
   },
 
   categories: {
     gap: 12,
   },
 
-  categoryCard: {
-    padding: 18,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#E5E5EA",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-
   categoryName: {
     fontSize: 16,
     fontWeight: "600",
+    color: "white",
   },
 
   transactionCount: {
     marginTop: 4,
     fontSize: 13,
     opacity: 0.55,
+    color: "white",
   },
 
   categoryAmount: {
     fontSize: 17,
     fontWeight: "700",
+    color: "white",
   },
 });
