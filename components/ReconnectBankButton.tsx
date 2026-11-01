@@ -34,8 +34,6 @@ export function ReconnectBankButton({ itemId }: Props) {
 
         onSuccess: async (success) => {
           console.log("3. PLAID UPDATE SUCCESS:", success);
-
-          // keep your existing refresh code here
         },
 
         onExit: (exit) => {
