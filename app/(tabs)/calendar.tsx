@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 
   week: {
     flexDirection: "row",
-    // marginBottom: 8,
+    marginBottom: 8,
   },
 
   weekday: {
