@@ -13,7 +13,6 @@ export function ExternalLink({ href, ...rest }: Props) {
   return (
     <Link
       target="_blank"
-      //this is for a commit message
       {...rest}
       href={href}
       onPress={async (event) => {
