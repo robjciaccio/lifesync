@@ -33,7 +33,7 @@ export function ReconnectBankButton({ itemId }: Props) {
         token: linkToken,
 
         onSuccess: async (success) => {
-          console.log("3. PLAID UPDATE SUCCESS:", success);
+          // console.log("3. PLAID UPDATE SUCCESS:", success);
         },
 
         onExit: (exit) => {
