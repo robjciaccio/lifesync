@@ -18,7 +18,7 @@ export default function TransactionsScreen() {
     }).format(value);
   }
   const queryClient = useQueryClient();
-
+  // this coment is for testing purposes
   const [isRefreshing, setIsRefreshing] = useState(false);
   console.log(
     "Transactions:",
