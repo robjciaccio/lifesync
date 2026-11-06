@@ -4,6 +4,8 @@ import * as Haptics from "expo-haptics";
 
 export function HapticTab(props: BottomTabBarButtonProps) {
   return (
+    //this is a haptic tab.
+    //its cute
     <PlatformPressable
       {...props}
       onPressIn={(ev) => {
