@@ -27,7 +27,6 @@ export default function TransactionsScreen() {
   const handleRefresh = async () => {
     try {
       setIsRefreshing(true);
-      //hello
       const response = await fetch(`${API_URL}/transactions/refresh`, {
         method: "POST",
       });
