@@ -5,7 +5,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useDailySpending } from "@/hooks/useDailySpending";
 
-const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
+const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "s"];
 
 export default function CalendarScreen() {
   const now = new Date();
