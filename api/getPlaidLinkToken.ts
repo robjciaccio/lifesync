@@ -10,7 +10,7 @@ export async function getPlaidLinkToken() {
   if (!response.ok) {
     throw new Error(`Failed to fetch Plaid link token: ${response.status}`);
   }
-
+  // this file works correclty
   const data = await response.json();
 
   return data.linkToken as string;
