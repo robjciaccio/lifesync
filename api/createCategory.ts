@@ -8,7 +8,6 @@ export const createCategory = async (name: string) => {
     },
     body: JSON.stringify({ name }),
   });
-  // adding a comment ehre to test a commit
   if (!response.ok) {
     throw new Error("Failed to create category");
   }
