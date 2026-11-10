@@ -52,7 +52,7 @@ export default function HomeScreen() {
       {!isLoading && !isError && !data?.accounts?.length && (
         <View style={styles.emptyState}>
           <Text style={styles.emptyStateText}>
-            No bank accounts connected yet.
+            No Bank Accounts connected yet.
           </Text>
 
           <ConnectBankButton />
