@@ -6,7 +6,6 @@ import { ThemedView } from "@/components/themed-view";
 import { useDailySpending } from "@/hooks/useDailySpending";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
-// these need to be all caps
 export default function CalendarScreen() {
   const now = new Date();
 
