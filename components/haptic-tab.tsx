@@ -15,4 +15,3 @@ export function HapticTab(props: BottomTabBarButtonProps) {
     />
   );
 }
-//here is a coment
