@@ -4,7 +4,7 @@ type GetDailySpendingParams = {
   year: number;
   month: number;
 };
-
+// get daily spending for a given year and month
 export async function getDailySpending({
   year,
   month,
