@@ -132,10 +132,6 @@ export default function BudgetScreen() {
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        {/* <ThemedText style={{ color: "white" }} type="title">
-          Budget
-        </ThemedText> */}
-
         <ThemedText style={styles.month}>
           {new Date(year, month - 1).toLocaleString("default", {
             month: "long",

@@ -15,7 +15,7 @@ export default function CalendarScreen() {
   const { data, isLoading } = useDailySpending(year, month);
 
   const days = getCalendarDays(year, month);
-
+  // Format the month name and year for display
   const monthName = new Intl.DateTimeFormat("en-US", {
     month: "long",
     year: "numeric",
