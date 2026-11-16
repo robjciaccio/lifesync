@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
 
 export default function ProfileScreen() {
   return (
@@ -10,12 +10,12 @@ export default function ProfileScreen() {
     </ThemedView>
   );
 }
-
+// this screen is a placeholder for now
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
   },
 });
