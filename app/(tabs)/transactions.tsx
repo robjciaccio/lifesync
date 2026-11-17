@@ -48,7 +48,7 @@ export default function TransactionsScreen() {
       setIsRefreshing(false);
     }
   };
-
+  // this is the render item
   const renderItem = ({ item }: any) => {
     return (
       <Pressable
