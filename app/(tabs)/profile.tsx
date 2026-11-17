@@ -10,7 +10,7 @@ export default function ProfileScreen() {
     </ThemedView>
   );
 }
-
+// this is a placholder
 const styles = StyleSheet.create({
   container: {
     flex: 1,
