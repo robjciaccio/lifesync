@@ -21,7 +21,7 @@ export async function updateTransactionType({
       }),
     },
   );
-
+  //comment
   if (!response.ok) {
     throw new Error(`Failed to update transaction type: ${response.status}`);
   }
