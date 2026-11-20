@@ -18,4 +18,3 @@ export function HelloWave() {
     </Animated.Text>
   );
 }
-//this is the hellow wave component
