@@ -44,3 +44,4 @@ export function ConnectBankButton() {
 
   return <Button title="Connect bank" onPress={handleConnect} />;
 }
+//code cleanup
