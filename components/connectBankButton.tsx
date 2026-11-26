@@ -7,7 +7,7 @@ import { exchangePlaidToken } from "../api/exchangePlaidToken";
 
 export function ConnectBankButton() {
   const queryClient = useQueryClient();
-
+  // connect bank account buton
   const handleConnect = async () => {
     try {
       const linkToken = await getPlaidLinkToken();
